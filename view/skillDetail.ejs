@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERO DETAIL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .container-custom{
+            margin:10px;
+            padding:10px;
+        }
+    </style>
+    <script>
+    function showalert(dt,ic){
+        Swal.fire({
+                    icon: ic,
+                    title: dt,
+                    showConfirmButton: false,
+                    })
+    }
+</script>
+</head>
+
+<body style="background-color:black">
+<div class="container-custom bg-dark">
+    <h1 class="text-primary text-center">
+        <%= skill.title %>
+    </h1>
+
+    <form action="/skill/update" method="post" id ="skillForm" onsubmit="showalert('data Update','success')">
+        <input type="text" hidden name="id" value="<%= skill.data[0].id %>" />
+        <label for="nama_hero" class="col-md-2 text-white">Nama Hero</label>
+        <select class="col-md-9" name="nama_hero" id="hero" form="skillForm">
+            <% for (let i =0 ; i < skill.data2.length ;i++ ){ %>
+            <option ><%= skill.data2[i].name %></option>
+            <% } %>
+          </select>
+        <br>
+        <br>
+        <label for="nama_skill" class="col-md-2 text-white" >Nama Skill</label>
+        <input type="text" class="col-md-9" name="nama_skill" value="<%= skill.data[0].nama_skill %>" />
+        <br>
+        <br>
+        <label for="damage" class="col-md-2 text-white" >damage</label>
+        <input type="number" class="col-md-9" name="damage" value="<%= skill.data[0].damage %>" />
+        <br>
+        <br>
+        <a class="btn btn-danger col-md-6" href="/skill" >back</a>       
+        <input type="submit" class="btn btn-success col-md-5" value="update"  />
+        
+          
+    </form>
+</div>
+</body>
+
+</html>

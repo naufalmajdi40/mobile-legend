@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERO LIST</title>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .container-custom{
+        margin-left:130px;
+        margin-right:130px;
+        margin-top: 20px;
+        padding:20px;
+    }
+</style>
+<script>
+
+    function showalert(dt,ic){
+        Swal.fire({
+                    icon: ic,
+                    title: dt,
+                    showConfirmButton: false,
+                    })
+    }
+</script>
+</head>
+<body style="background-color:black">
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="#">Mobile Legend Cuy</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link text-primary " aria-current="page" href="/hero">HEROES</a>
+              <a class="nav-link text-primary active" href="#">SKILL</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <div class="container-custom bg-dark text-white">
+        <h1 class="text-center text-primary">
+            <%= skill.title %>
+        </h1>
+    
+        <table class="table table-hover table-dark " >
+            <tr>
+                <br/>
+                <th class="text-primary">id</th>
+                <th class="text-primary">Nama Hero</th>
+                <th class="text-primary">Nama Skill</th>
+                <th class="text-primary"><center> Damage</center></th>
+                <th class="text-primary"><center>Action</center></th>
+            </tr>
+            <% for (let i = 0; i < skill.data.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= i + 1 %>
+                    </td>
+                    <td>
+                        <%= skill.data[i].nama_hero %>
+                    </td>
+                    <td>
+                        <%= skill.data[i].nama_skill %>
+                    </td>
+                    <td>
+                    <center>
+                        <%= skill.data[i].damage %>
+                    </center>
+                    </td>
+                    <td>
+                    <center>
+                    <form action="/skill/remove" method="post" onsubmit="showalert('data Dihapus','error')">
+                        <a class="btn btn-warning" href="/skill/<%= skill.data[i].id %>" >Edit</a>
+                            <input type="text" hidden name="id" value="<%= skill.data[i].id %>" />
+                            <input  type="submit" class="btn btn-danger"  value="Del X" style="cursor: pointer;" />
+                        </td>
+                    </form>
+                    </center>
+                </tr>
+                <% } %>
+        </table>
+        <br>
+    </div>
+   
+    <div class="container-custom bg-dark">
+    <h3 class="text-primary">TAMBAHKAN HERO</h3>
+        <form  action="/skill/add" id="skillForm" method="post" onsubmit="showalert('data ditambahkan','success')">
+            
+            <br>
+            <label for="hero" class="col-md-2 text-white"> Nama Hero</label>
+            <!-- <input type="text" class="col-md-6" name="nama_hero" placeholder="isi nama hero" /> -->
+            <select class="col-md-9" name="nama_hero" id="hero" form="skillForm">
+                <% for (let i =0 ; i < skill.data2.length ;i++ ){ %>
+                <option ><%= skill.data2[i].name %></option>
+                <% } %>
+              </select>
+            <br>
+            <br>
+            <label for="skill" class="col-md-2 text-white">Nama Skill</label>
+            <input type="text" class="col-md-9" name="nama_skill" placeholder="isi nama skill" />
+            <br>
+            <br>
+            <label for="damage" class="col-md-2 text-white">damage</label>
+            <input type="number" class="col-md-9"name="damage" placeholder="isi damage" />
+            <br>
+            <br>
+            <input type="submit"  class="btn btn-primary col-md-11" value="Tambahkan" />
+        </form>
+    <div>
+</body>
+</html>

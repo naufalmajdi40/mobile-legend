@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERO LIST</title>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .container-custom{
+        margin-left:130px;
+        margin-right:130px;
+        margin-top: 20px;
+        padding:10px;
+    }
+</style>
+<script>
+    function showalert(dt,ic){
+        Swal.fire({
+                    icon: ic,
+                    title: dt,
+                    showConfirmButton: false,
+                    })
+    }
+</script>
+</head>
+<body style="background-color:black">
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="#">Mobile Legend Cuy</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link text-primary active" aria-current="page" href="#">HEROES</a>
+              <a class="nav-link text-primary" href="/skill">SKILL</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container-custom bg-dark text-white">
+        <h1 class="text-center text-primary">
+            <%= heroes.title %>
+        </h1>
+    
+        <table class="table table-hover table-dark " >
+            <tr>
+                <br/>
+                <th class="text-primary">id</th>
+                <th class="text-primary">name</th>
+                <th class="text-primary"><center>role</center></th>
+                <th class="text-primary"><center>Winrate</center></th>
+                <th class="text-primary"><center>action</center></th>
+            </tr>
+            <% for (let i = 0; i < heroes.data.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= i + 1 %>
+                    </td>
+                    <td>
+                        <%= heroes.data[i].name %>
+                    </td>
+                    <td>
+                    <center>
+                        <%= heroes.data[i].role %>
+                    </center>
+                    </td>
+                    <td>
+                    <center>
+                        <%= heroes.data[i].winrate %> 
+                        %
+                    </center>
+                    </td>
+                    <td>
+                    <center>
+                    <form action="/hero/remove" method="post" onsubmit="showalert('data Dihapus','error')">
+                            <a class="btn btn-warning" href="/hero/<%= heroes.data[i].id %>" >Edit</a>
+                            <input type="text" hidden name="id" value="<%= heroes.data[i].id %>" />
+                            <input class="btn btn-danger" type="submit"  value=" Del X" style="cursor: pointer;" />
+                        </td>
+                    </form>
+                    </center>
+                </tr>
+                <% } %>
+        </table>
+        <br>
+    </div>
+   
+    <div class="container-custom bg-dark">
+    <h3 class="text-primary">TAMBAHKAN HERO</h3>
+        <form  onsubmit="showalert('data ditambahkan','success')" action="/hero/add" method="post">
+            <label for="name" class="col-md-2 text-white"> Nama Hero</label>
+            <input type="text" class="col-md-9" name="name" placeholder="isi nama hero" />
+            <br>
+            <br>
+            <label for="role" class="col-md-2 text-white">Role</label>
+            <input type="text" class="col-md-9" name="role" placeholder="isi role" />
+            <br>
+            <br>
+            <label for="winrate" class="col-md-2 text-white">Winrate</label>
+            <input type="number" class="col-md-9"name="winrate" placeholder="isi winrate" />
+            <br>
+            <br>
+            <input type="submit"  class="btn btn-primary" value="tambahkan" />
+        </form>
+    <div>
+</body>
+</html>
